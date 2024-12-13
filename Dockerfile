@@ -1,35 +1,43 @@
-# # FROM node:16-alpine
+# # # FROM node:16-alpine
 
+# # # WORKDIR /app
+
+# # # COPY package*.json ./
+# # # RUN npm install
+
+# # # COPY . .
+# # # RUN npm run build # Or your backend build command
+
+# # # CMD ["npm", "start"] # Or your backend start command
+
+# # # EXPOSE 3000
+
+# # # Replace with your appropriate base image and commands
+# # FROM node:16
 # # WORKDIR /app
-
 # # COPY package*.json ./
 # # RUN npm install
-
 # # COPY . .
-# # RUN npm run build # Or your backend build command
+# # CMD ["npm", "start"]
 
-# # CMD ["npm", "start"] # Or your backend start command
+# FROM node:16-alpine 
 
-# # EXPOSE 3000
-
-# # Replace with your appropriate base image and commands
-# FROM node:16
 # WORKDIR /app
+
 # COPY package*.json ./
-# RUN npm install
+# RUN npm ci --only=production
+
 # COPY . .
-# CMD ["npm", "start"]
+# RUN npm run build 
 
-FROM node:16-alpine 
+# CMD ["npm", "start"] 
 
+# EXPOSE 3000
+
+FROM node:16-alpine
 WORKDIR /app
-
 COPY package*.json ./
 RUN npm ci --only=production
-
 COPY . .
-RUN npm run build 
-
-CMD ["npm", "start"] 
-
+CMD ["npm", "start"] # Or your actual start command
 EXPOSE 3000
