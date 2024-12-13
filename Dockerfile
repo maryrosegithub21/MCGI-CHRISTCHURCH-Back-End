@@ -40,4 +40,4 @@ COPY package*.json ./
 RUN npm ci --only=production
 COPY . .
 CMD ["npm", "start"] # Or your actual start command
-EXPOSE 3000
+EXPOSE 4000
