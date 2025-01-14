@@ -2,6 +2,7 @@
   "name": "mcgi-christchurch-back-end",
   "private": true,
   "version": "0.0.0",
+  
   "type": "commonjs",
   "scripts": {
     "dev": "nodemon server.js",
@@ -32,7 +33,7 @@
     "nodemon": "^3.1.5",
     "vite": "^5.3.4"
   },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
+  "description": "Backend for MCGI Christchurch",
   "main": "server.js",
   "keywords": [],
   "author": "",
