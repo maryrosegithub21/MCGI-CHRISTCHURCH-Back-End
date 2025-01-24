@@ -66,6 +66,9 @@ app.post('/api/ai-chat', async (req, res) => {
     res.status(500).json({ error: "Error communicating with Google AI Studio" });
   }
 });
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 
 // Port
 const PORT = process.env.PORT || 4000;

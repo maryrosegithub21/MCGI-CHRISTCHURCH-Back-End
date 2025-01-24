@@ -1,48 +1,91 @@
-# # Use the official Node.js image as a parent image
-# FROM node:14
+# # # # FROM node:16-alpine
 
-# # Set the working directory
+# # # # WORKDIR /app
+
+# # # # COPY package*.json ./
+# # # # RUN npm install
+
+# # # # COPY . .
+# # # # RUN npm run build # Or your backend build command
+
+# # # # CMD ["npm", "start"] # Or your backend start command
+
+# # # # EXPOSE 3000
+
+# # # # Replace with your appropriate base image and commands
+# # # FROM node:16
+# # # WORKDIR /app
+# # # COPY package*.json ./
+# # # RUN npm install
+# # # COPY . .
+# # # CMD ["npm", "start"]
+
+# # FROM node:16-alpine 
+
+# # WORKDIR /app
+
+# # COPY package*.json ./
+# # RUN npm ci --only=production
+
+# # COPY . .
+# # RUN npm run build 
+
+# # CMD ["npm", "start"] 
+
+# # EXPOSE 3000
+
+# # FROM node:16-alpine
+# # WORKDIR /app
+# # COPY package*.json ./
+# # RUN npm ci --only=production
+# # COPY . .
+# # CMD ["npm", "start"] # Or your actual start command
+# # EXPOSE 4000
+
+# # Use a supported Node.js base image
+# FROM node:24
+
+# # Set the working directory in the container
 # WORKDIR /app
 
-# # Copy package.json and package-lock.json
+# # Copy package.json and package-lock.json (if it exists)
 # COPY package*.json ./
 
 # # Install dependencies
 # RUN npm install
 
-# # Copy the rest of the application code
+# # Copy the rest of your application code
 # COPY . .
 
-# # Copy the .env file
-# COPY .env .env
+# # Expose the port your app listens on
+# EXPOSE 4000
 
-# # Expose the port the app runs on
-# EXPOSE 3000
+# # Define the command to start your app
+# CMD ["node", "server.js"]
 
-# # Run the application
-# CMD ["npm", "start"]
-
-
-# Use a more recent LTS Node.js version (e.g., 18 or 20) for better performance and security
-FROM node:20
+# Use a slim base image for smaller size and faster startup
+FROM node:20-alpine
 
 # Set the working directory
 WORKDIR /app
 
-# Copy only necessary files for dependency installation to leverage Docker's caching
+# Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --omit=dev  
+# Install production dependencies
+RUN npm ci --only=production
 
-# Copy the rest of the application code
+# Copy application code
 COPY . .
 
-# Copy the .env file (consider using secrets instead for better security)
-COPY .env .env 
+# Build the application (if necessary)
+RUN npm run build
 
-# Expose the port the app runs on
-EXPOSE 3000
+# Set the port your app listens on
+ENV PORT 4000
 
-# Run the application
+# Start the application
 CMD ["npm", "start"]
+
+# Expose the port
+EXPOSE 4000
